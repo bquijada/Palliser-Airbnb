@@ -1,29 +1,18 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
-import { Grid, GridItem, Show } from "@chakra-ui/react";
-import NavBar from "./components/NavBar";
+import Explore from "./components/Explore";
+import Home from "./components/Home";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+
 
 function App() {
   return (
-    <Grid
-      templateAreas={{
-        base: `"nav" "main"`,
-        lg: `"nav nav" "aside main"`,
-      }}
-    >
-      <GridItem area="nav">
-        <NavBar></NavBar>
-      </GridItem>
-      <Show above="lg">
-        <GridItem area="aside" bg="gold">
-          Aside
-        </GridItem>
-      </Show>
-      <GridItem area="main" bg="dodgerblue">
-        Main
-      </GridItem>
-    </Grid>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" Component={Home} />
+        <Route path="/Explore" Component={Explore} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
