@@ -19,7 +19,7 @@ const Home = () => {
         </GridItem>
       </Show>
       <GridItem area="main" bg="dodgerblue">
-         Main Explore
+        Main Winter
       </GridItem>
     </Grid>
   );

@@ -1,5 +1,6 @@
 import "./App.css";
-import Explore from "./components/Explore";
+import Summer from "./components/Summer";
+import Winter from "./components/Winter";
 import Home from "./components/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -10,7 +11,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" Component={Home} />
-        <Route path="/Explore" Component={Explore} />
+        <Route path="/Winter" Component={Winter} />
+        <Route path="/Summer" Component={Summer} />
       </Routes>
     </BrowserRouter>
   );
