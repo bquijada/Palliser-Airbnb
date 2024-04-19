@@ -1,11 +1,13 @@
 from flask import Flask, jsonify
-import secrets
 import activity
 from google.cloud import datastore
-
+from dotenv import load_dotenv
+import os
 app = Flask(__name__)
 
-app.secret_key = secrets.token_hex(16)
+secret_key = os.getenv("SECRET_KEY")
+if secret_key is None:
+    raise ValueError("No SECRET_KEY set for Flask application")
 client = datastore.client 
 
 app.register_blueprint(activity.bp)
