@@ -1,2 +1,3 @@
-from dotenv import load_dotenv
-load_dotenv()
+# config.py
+
+DATASTORE_PROJECT_ID = 'palliserbnb'
