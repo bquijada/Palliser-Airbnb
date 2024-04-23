@@ -1,6 +1,7 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 import React from "react";
 import NavBar from "./NavBar";
+import ActivityGrid from "./activityGrid";
 
 const Home = () => {
   return (
@@ -19,7 +20,7 @@ const Home = () => {
         </GridItem>
       </Show>
       <GridItem area="main" bg="dodgerblue">
-         Main Summer
+         <ActivityGrid/>
       </GridItem>
     </Grid>
   );

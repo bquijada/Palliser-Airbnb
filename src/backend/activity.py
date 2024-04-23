@@ -1,10 +1,16 @@
 from flask import Blueprint, request, url_for
 from google.cloud import datastore
 import json
-
+from flask_cors import CORS
 client = datastore.Client()
 
 bp = Blueprint('activity', __name__, url_prefix='/activity')
+
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = 'http://127.0.0.1:5173'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    return response
 
 
 @bp.route('/<activity_id>', methods=['GET'])
@@ -15,16 +21,14 @@ def activity_get(activity_id):
             'activity', int(activity_id)))
         result = list(query.fetch())
         if result:
-            # return all the loads on given boat
             result[0]["id"] = result[0].key.id
             selected_activity = result[0]
-            # request all the load information for each load
             return json.dumps(selected_activity)
         else:
             return json.dumps({"Error": "No activity with this id exists"}), 404
 
 
-@bp.route('', methods=['POST'])
+@bp.route('', methods=['POST', 'GET'])
 def activity_get_post():
     if request.method == 'POST':
         # check if the request has a Content-Type header and if it is JSON
@@ -64,6 +68,18 @@ def activity_get_post():
             "self": self_url
         }
         return json.dumps(response_data), 201
+    elif request.method == 'GET':
+        results = {}
+        query = client.query(kind='activity')
+        results['activities'] = list(query.fetch())
+        if results:
+            for result in results['activities']:
+                result["id"] = result.key.id
+            return json.dumps(results)
+        else:
+            return json.dumps({"Error": "No results found"}), 404
     else:
         return json.dumps(
-            {"Error": "Method not allowed. Only POST avaiable at this URL"}), 405
+            {"Error": "Method not allowed. Only POST and GET avaiable at this URL"}), 405
+
+
