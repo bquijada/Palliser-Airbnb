@@ -3,6 +3,8 @@ import React from "react";
 import NavBar from "./NavBar";
 import ActivityGrid from "./activityGrid";
 
+const WINTER_ENDPOINT = "/activity/winter";
+
 const Home = () => {
   return (
     <Grid
@@ -20,7 +22,7 @@ const Home = () => {
         </GridItem>
       </Show>
       <GridItem area="main" bg="dodgerblue">
-        <ActivityGrid/>
+        <ActivityGrid endpoint={WINTER_ENDPOINT}/>
       </GridItem>
     </Grid>
   );

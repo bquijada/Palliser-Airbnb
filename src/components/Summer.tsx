@@ -2,6 +2,7 @@ import { Grid, GridItem, Show } from "@chakra-ui/react";
 import React from "react";
 import NavBar from "./NavBar";
 import ActivityGrid from "./activityGrid";
+const SUMMER_ENDPOINT = "/activity/summer";
 
 const Home = () => {
   return (
@@ -20,7 +21,7 @@ const Home = () => {
         </GridItem>
       </Show>
       <GridItem area="main" bg="dodgerblue">
-         <ActivityGrid/>
+         <ActivityGrid endpoint={SUMMER_ENDPOINT}/>
       </GridItem>
     </Grid>
   );

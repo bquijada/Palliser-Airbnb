@@ -12,6 +12,39 @@ def add_cors_headers(response):
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
     return response
 
+@bp.route('/summer', methods=['GET'])
+def get_summer():
+    if request.method == 'GET':
+        results = {}
+        query = client.query(kind='activity')
+        query.add_filter( query.add_filter('season', 'IN', ['summer', 'all']))
+        results['activities'] = list(query.fetch())
+        if results:
+            for result in results['activities']:
+                result["id"] = result.key.id
+            return json.dumps(results)
+        else:
+            return json.dumps({"Error": "No results found"}), 404
+    else:
+        return json.dumps(
+            {"Error": "Method not allowed. Only POST and GET avaiable at this URL"}), 405
+            
+@bp.route('/winter', methods=['GET'])
+def get_winter():
+    if request.method == 'GET':
+        results = {}
+        query = client.query(kind='activity')
+        query.add_filter( query.add_filter('season', 'IN', ['winter', 'all']))
+        results['activities'] = list(query.fetch())
+        if results:
+            for result in results['activities']:
+                result["id"] = result.key.id
+            return json.dumps(results)
+        else:
+            return json.dumps({"Error": "No results found"}), 404
+    else:
+        return json.dumps(
+            {"Error": "Method not allowed. Only POST and GET avaiable at this URL"}), 405
 
 @bp.route('/<activity_id>', methods=['GET'])
 def activity_get(activity_id):
