@@ -23,7 +23,8 @@ const ActivityGrid = (props: ActivityGridProps) => {
   useEffect(() => {
     apiClient
       .get<FetchActivityResponse>(endpoint)
-      .then((res) => setActivities(res.data.activities));
+      .then((res) => setActivities(res.data.activities))
+      .catch(err => setError(err.message));
   }, []);
   return (
     <ul>
