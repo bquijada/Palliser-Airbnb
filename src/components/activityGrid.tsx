@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import apiClient from "../services/api-client";
-import { UnorderedList } from "@chakra-ui/react";
+import useActivities from "../hooks/useActivities";
 
 interface Activity {
   name: string;
@@ -17,21 +15,15 @@ interface ActivityGridProps {
 
 const ActivityGrid = (props: ActivityGridProps) => {
   const { endpoint } = props;
-  const [activities, setActivities] = useState<Activity[]>([]);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    apiClient
-      .get<FetchActivityResponse>(endpoint)
-      .then((res) => setActivities(res.data.activities))
-      .catch(err => setError(err.message));
-  }, []);
+  const { activities, error } = useActivities(endpoint);
   return (
+    <> {error && <span>{error}</span>}
     <ul>
       {activities.map((activity) => (
         <li key={activity.id}>{activity.name}</li>
       ))}
     </ul>
+    </>
   );
 };
 

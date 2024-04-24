@@ -16,11 +16,11 @@ const Home = () => {
         <NavBar></NavBar>
       </GridItem>
       <Show above="lg">
-        <GridItem area="aside" bg="gold">
+        <GridItem area="aside">
           Aside
         </GridItem>
       </Show>
-      <GridItem area="main" bg="dodgerblue">
+      <GridItem area="main">
          <ActivityGrid endpoint={SUMMER_ENDPOINT}/>
       </GridItem>
     </Grid>
