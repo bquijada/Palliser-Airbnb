@@ -50,7 +50,7 @@ def get_winter():
             {"Error": "Method not allowed. Only POST and GET avaiable at this URL"}), 405
 
 
-@bp.route('/<activity_id>', methods=['GET'])
+@bp.route('/<activity_id>', methods=['GET', 'PUT'])
 def activity_get(activity_id):
     if request.method == 'GET':
         query = client.query(kind='activity')
@@ -63,6 +63,10 @@ def activity_get(activity_id):
             return json.dumps(selected_activity)
         else:
             return json.dumps({"Error": "No activity with this id exists"}), 404
+    if request.method == 'PUT':
+        return edit_activity(activity_id)
+    else:
+        return json.dumps({"Error": "Method not allowed. Only PUT/GET avaiable at this URL"}), 405
 
 
 @bp.route('', methods=['POST', 'GET'])
@@ -120,13 +124,25 @@ def activity_get_post():
             {"Error": "Method not allowed. Only POST and GET avaiable at this URL"}), 405
 
 
-@bp.route('/<activity_id>/add_image', methods=['POST'])
-def put_image(activity_id):
-    image_url = request.json.get('image_url')
+#@bp.route('/<activity_id>/add_image', methods=['POST'])
+#def put_image(activity_id):
+#    image_url = request.json.get('image_url')
+#    activity_key = client.key('activity', int(activity_id))
+#    activity_to_update = client.get(activity_key)
+#    if not activity_to_update:
+#        return json.dumps({"Error": "No activity with this id exists"}), 404
+#    activity_to_update['image'] = image_url
+#    client.put(activity_to_update)
+#    return jsonify({'message': 'Image added successfully'})
+
+
+def edit_activity(activity_id):
+    content = request.json
     activity_key = client.key('activity', int(activity_id))
     activity_to_update = client.get(activity_key)
     if not activity_to_update:
         return json.dumps({"Error": "No activity with this id exists"}), 404
-    activity_to_update['image'] = image_url
+    for property in content:
+        activity_to_update[property] = content[property]
     client.put(activity_to_update)
-    return jsonify({'message': 'Image added successfully'})
+    return jsonify(activity_to_update)
