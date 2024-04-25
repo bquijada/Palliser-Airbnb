@@ -1,4 +1,4 @@
-from flask import Blueprint, request, url_for
+from flask import Blueprint, jsonify, request, url_for
 from google.cloud import datastore
 import json
 from flask_cors import CORS
@@ -6,18 +6,20 @@ client = datastore.Client()
 
 bp = Blueprint('activity', __name__, url_prefix='/activity')
 
+
 def add_cors_headers(response):
     response.headers['Access-Control-Allow-Origin'] = 'http://127.0.0.1:5173'
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
     return response
 
+
 @bp.route('/summer', methods=['GET'])
 def get_summer():
     if request.method == 'GET':
         results = {}
         query = client.query(kind='activity')
-        query.add_filter( query.add_filter('season', 'IN', ['summer', 'all']))
+        query.add_filter(query.add_filter('season', 'IN', ['summer', 'all']))
         results['activities'] = list(query.fetch())
         if results:
             for result in results['activities']:
@@ -28,13 +30,14 @@ def get_summer():
     else:
         return json.dumps(
             {"Error": "Method not allowed. Only POST and GET avaiable at this URL"}), 405
-            
+
+
 @bp.route('/winter', methods=['GET'])
 def get_winter():
     if request.method == 'GET':
         results = {}
         query = client.query(kind='activity')
-        query.add_filter( query.add_filter('season', 'IN', ['winter', 'all']))
+        query.add_filter(query.add_filter('season', 'IN', ['winter', 'all']))
         results['activities'] = list(query.fetch())
         if results:
             for result in results['activities']:
@@ -45,6 +48,7 @@ def get_winter():
     else:
         return json.dumps(
             {"Error": "Method not allowed. Only POST and GET avaiable at this URL"}), 405
+
 
 @bp.route('/<activity_id>', methods=['GET'])
 def activity_get(activity_id):
@@ -69,24 +73,24 @@ def activity_get_post():
             return json.dumps({"Error": "Content-Type must be application/json"}), 415, {
                 'Content-Type': 'application/json'}
 
-        # creates a new boat
+        # creates a new activity
         content = request.get_json()
         new_activity = datastore.entity.Entity(key=client.key('activity'))
 
         # verify body includes required attributes
-        required_attributes = ['name', 'photo',
+        required_attributes = ['name', 'image',
                                'description', 'link', 'season']
         for attr in required_attributes:
             if attr not in content:
                 return json.dumps(
                     {"Error": "The request object is missing at least one of the required attributes"}), 400
 
-        new_activity.update({"name": content["name"], "photo": content["photo"],
+        new_activity.update({"name": content["name"], "image": content["image"],
                              "description": content["description"], "season": content["season"], "link": content["link"], "self": ''})
         client.put(new_activity)
         # get new id for resource URL and add that to entity
         self_url = request.url + "/" + str(new_activity.key.id)
-        new_activity.update({"name": content["name"], "photo": content["photo"],
+        new_activity.update({"name": content["name"], "image": content["image"],
                              "description": content["description"], "season": content["season"], "link": content["link"], "self": self_url})
         client.put(new_activity)
         activity_id = new_activity.key.id
@@ -94,7 +98,7 @@ def activity_get_post():
         response_data = {
             "id": activity_id,
             "name": content["name"],
-            "photo": content["photo"],
+            "image": content["image"],
             "description": content["description"],
             "season": content["season"],
             "link": content["link"],
@@ -116,3 +120,13 @@ def activity_get_post():
             {"Error": "Method not allowed. Only POST and GET avaiable at this URL"}), 405
 
 
+@bp.route('/<activity_id>/add_image', methods=['POST'])
+def put_image(activity_id):
+    image_url = request.json.get('image_url')
+    activity_key = client.key('activity', int(activity_id))
+    activity_to_update = client.get(activity_key)
+    if not activity_to_update:
+        return json.dumps({"Error": "No activity with this id exists"}), 404
+    activity_to_update['image'] = image_url
+    client.put(activity_to_update)
+    return jsonify({'message': 'Image added successfully'})

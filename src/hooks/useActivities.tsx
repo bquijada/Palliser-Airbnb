@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
-interface Activity {
+
+export interface Activity {
     name: string;
     id: number;
+    image: string;
   }
   
   interface FetchActivityResponse {
