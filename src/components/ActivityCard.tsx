@@ -13,7 +13,14 @@ export const ActivityCard = ({ activity }: Props) => {
       <CardBody>
         <Heading fontSize="2xl">{activity.name}</Heading>
         <Text>{activity.description}</Text>
-        <Link color='teal.500' href={activity.link}>Learn More</Link>
+        <Link
+          color="teal.500"
+          href={activity.link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn More
+        </Link>
       </CardBody>
     </Card>
   );

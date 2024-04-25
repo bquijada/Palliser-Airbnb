@@ -124,18 +124,6 @@ def activity_get_post():
             {"Error": "Method not allowed. Only POST and GET avaiable at this URL"}), 405
 
 
-#@bp.route('/<activity_id>/add_image', methods=['POST'])
-#def put_image(activity_id):
-#    image_url = request.json.get('image_url')
-#    activity_key = client.key('activity', int(activity_id))
-#    activity_to_update = client.get(activity_key)
-#    if not activity_to_update:
-#        return json.dumps({"Error": "No activity with this id exists"}), 404
-#    activity_to_update['image'] = image_url
-#    client.put(activity_to_update)
-#    return jsonify({'message': 'Image added successfully'})
-
-
 def edit_activity(activity_id):
     content = request.json
     activity_key = client.key('activity', int(activity_id))
