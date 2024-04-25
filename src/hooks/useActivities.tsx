@@ -5,6 +5,8 @@ export interface Activity {
     name: string;
     id: number;
     image: string;
+    description: string;
+    link: string;
   }
   
   interface FetchActivityResponse {
