@@ -11,6 +11,7 @@ const NavBar = () => {
     <HStack justifyContent='space-between' padding='10px'>
       <Icon as={GiMountains} w={20} h={20} />
       <ReactRouterLink to="/" className="bigger-link">Home</ReactRouterLink>
+      <ReactRouterLink to="/About" className="bigger-link">About Us</ReactRouterLink>
       <Menu>
         <MenuButton as={Link} className="bigger-link">
           Explore Activities
@@ -20,7 +21,7 @@ const NavBar = () => {
           <MenuItem onClick={() => navigate("/Winter")}>Winter</MenuItem>
         </MenuList>
       </Menu>
-      <VStack><Link href={airbnb_link}>
+      <VStack><Link href={airbnb_link} target="_blank" rel="noopener noreferrer">
       <Button colorScheme='teal' size='sm'>
       <Icon as={FaBed} w={5} h={5} marginRight={2}/>Book Your Stay</Button></Link>
       <ColorSwitch></ColorSwitch></VStack>
