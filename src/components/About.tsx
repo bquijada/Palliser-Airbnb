@@ -31,10 +31,10 @@ const About = () => {
             fontSize="xl"
           >
             Clem and I first discovered Golden by accident 3 years ago and
-            absolutely fell in love with the town and Kicking Horse. We loved it
+            absolutely fell in love with the town and Kicking Horse Mountain Resort. We loved it
             here so much we decided to make it our permanent home. Clem is from
             France and I'm from California and we met on a ski season in Niseko,
-            Japan in 2019. Since acquiring this little piece of mountain
+            Japan in 2019. Since acquiring our little piece of mountain
             paradise in May 2023, we've been thrilled to welcome guests from all
             corners of the globe and share the magic of Golden with them.
             Situated on the ground floor of the Palliser, you can ski from the
