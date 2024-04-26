@@ -9,8 +9,8 @@ const NavBar = () => {
   const navigate = useNavigate();
   return (
     <HStack justifyContent='space-between' padding='10px'>
-      <Icon as={GiMountains} w={20} h={20} />
-      <ReactRouterLink to="/" className="bigger-link">Home</ReactRouterLink>
+      <Link href="/">
+      <Icon as={GiMountains} w={20} h={20} /></Link>
       <ReactRouterLink to="/About" className="bigger-link">About Us</ReactRouterLink>
       <Menu>
         <MenuButton as={Link} className="bigger-link">
