@@ -27,6 +27,6 @@ const NavBar = () => {
       <ColorSwitch></ColorSwitch></VStack>
     </HStack>
   );
-};
+}; 
 
 export default NavBar;

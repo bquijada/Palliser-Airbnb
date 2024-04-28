@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request, url_for
 from google.cloud import datastore
 import json
+import tag
 from flask_cors import CORS
 client = datastore.Client()
 
@@ -29,7 +30,7 @@ def get_summer():
             return json.dumps({"Error": "No results found"}), 404
     else:
         return json.dumps(
-            {"Error": "Method not allowed. Only POST and GET avaiable at this URL"}), 405
+            {"Error": "Method not allowed. Only GET avaiable at this URL"}), 405
 
 
 @bp.route('/winter', methods=['GET'])
@@ -47,7 +48,7 @@ def get_winter():
             return json.dumps({"Error": "No results found"}), 404
     else:
         return json.dumps(
-            {"Error": "Method not allowed. Only POST and GET avaiable at this URL"}), 405
+            {"Error": "Method not allowed. Only GET avaiable at this URL"}), 405
 
 
 @bp.route('/<activity_id>', methods=['GET', 'PUT'])
@@ -88,17 +89,21 @@ def activity_get_post():
             if attr not in content:
                 return json.dumps(
                     {"Error": "The request object is missing at least one of the required attributes"}), 400
-
+        if not content["tags"]:
+            content["tags"] = []
         new_activity.update({"name": content["name"], "image": content["image"],
-                             "description": content["description"], "season": content["season"], "link": content["link"], "self": ''})
+                             "description": content["description"], "season": content["season"], "link": content["link"],
+                             "tags": content["tags"], "self": ''})
         client.put(new_activity)
         # get new id for resource URL and add that to entity
         self_url = request.url + "/" + str(new_activity.key.id)
         new_activity.update({"name": content["name"], "image": content["image"],
-                             "description": content["description"], "season": content["season"], "link": content["link"], "self": self_url})
+                             "description": content["description"], "season": content["season"], "link": content["link"],
+                             "tags": content["tags"], "self": self_url})
         client.put(new_activity)
         activity_id = new_activity.key.id
-
+        if content["tags"] != []:
+            add_tags(content["tags"], activity_id)
         response_data = {
             "id": activity_id,
             "name": content["name"],
@@ -106,6 +111,7 @@ def activity_get_post():
             "description": content["description"],
             "season": content["season"],
             "link": content["link"],
+            "tags": content["tags"],
             "self": self_url
         }
         return json.dumps(response_data), 201
@@ -124,6 +130,31 @@ def activity_get_post():
             {"Error": "Method not allowed. Only POST and GET avaiable at this URL"}), 405
 
 
+def add_tags(tags, activity_id):
+    query = client.query(kind='tag')
+    results = list(query.fetch())
+    existing_tag_names = [entity.get('name') for entity in results]
+    for tag in tags:
+        if tag not in existing_tag_names:
+            new_tag = datastore.entity.Entity(key=client.key('tag'))
+            new_tag.update({'name': tag, "activities": [activity_id]
+                            })
+            client.put(new_tag)
+            # get new id for resource URL and add that to entity
+            self_url = request.url + "/" + str(new_tag.key.id)
+            new_tag.update({"self": self_url})
+            client.put(new_tag)
+        else:
+            query = client.query(kind='tag')
+            query.add_filter('name', '=', tag)
+            existing_tags = list(query.fetch())
+            tag_to_update = existing_tags[0]
+            if activity_id not in tag_to_update['activities']:
+                tag_to_update['activities'].append(activity_id)
+            client.put(tag_to_update)
+
+
+
 def edit_activity(activity_id):
     content = request.json
     activity_key = client.key('activity', int(activity_id))
@@ -132,5 +163,7 @@ def edit_activity(activity_id):
         return json.dumps({"Error": "No activity with this id exists"}), 404
     for property in content:
         activity_to_update[property] = content[property]
+        if property == "tags":
+            add_tags(content[property], int(activity_id))
     client.put(activity_to_update)
     return jsonify(activity_to_update)
