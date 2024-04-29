@@ -2,14 +2,15 @@ import { SimpleGrid } from "@chakra-ui/react";
 import useActivities from "../hooks/useActivities";
 import { ActivityCard } from "./ActivityCard";
 import ActivityCardSkeleton from "./ActivityCardSkeleton";
+import { Tag } from "../hooks/useTags";
 
 interface ActivityGridProps {
-  endpoint: string;
+  endpoint: string,
+  selectedTag: Tag | null
 }
 
-const ActivityGrid = (props: ActivityGridProps) => {
-  const { endpoint } = props;
-  const { activities, error, isLoading } = useActivities(endpoint);
+const ActivityGrid = ({endpoint, selectedTag}: ActivityGridProps) => {
+  const { activities, error, isLoading } = useActivities(endpoint, selectedTag);
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   return (

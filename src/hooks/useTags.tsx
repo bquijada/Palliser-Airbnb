@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
-import { CanceledError } from "axios";
+import { AxiosRequestConfig, CanceledError } from "axios";
 
-export interface Tag{
-    id: number;
-    name: string;
+export interface Tag {
+  id: number;
+  name: string;
 }
 
 interface FetchTagsResponse {
   tags: Tag[];
 }
 
-const useTags = (endpoint: string) => {
+const useTags = (
+  endpoint: string,
+  selectedTag?: Tag | null,
+  requestConfig?: AxiosRequestConfig
+) => {
   const [tags, setTags] = useState<Tag[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);

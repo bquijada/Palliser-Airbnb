@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
+import { Tag } from "./useTags";
 
 export interface Activity {
   name: string;
@@ -14,7 +15,7 @@ interface FetchActivityResponse {
   activities: Activity[];
 }
 
-const useActivities = (endpoint: string) => {
+const useActivities = (endpoint: string, selectedTag: Tag | null) => {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -24,7 +25,8 @@ const useActivities = (endpoint: string) => {
 
     setLoading(true);
     apiClient
-      .get<FetchActivityResponse>(endpoint, { signal: controller.signal })
+      .get<FetchActivityResponse>(endpoint, { signal: controller.signal, params: {tags: selectedTag?.name}, 
+        headers: {'Content-Type': 'application/json'}})
       .then((res) => {
         setActivities(res.data.activities);
         setLoading(false);
@@ -36,7 +38,7 @@ const useActivities = (endpoint: string) => {
       });
 
     return () => controller.abort();
-  }, []);
+  }, [selectedTag === null ? null : selectedTag]);
   return { activities, error, isLoading };
 };
 

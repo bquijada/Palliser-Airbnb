@@ -18,9 +18,12 @@ def add_cors_headers(response):
 @bp.route('/summer', methods=['GET'])
 def get_summer():
     if request.method == 'GET':
+        tags = request.args.getlist("tags")
         results = {}
         query = client.query(kind='activity')
-        query.add_filter(query.add_filter('season', 'IN', ['summer', 'all']))
+        query.add_filter('season', 'IN', ['summer', 'all'])
+        if tags:
+            query.add_filter('tags', 'IN', tags)
         results['activities'] = list(query.fetch())
         if results:
             for result in results['activities']:
@@ -31,14 +34,17 @@ def get_summer():
     else:
         return json.dumps(
             {"Error": "Method not allowed. Only GET avaiable at this URL"}), 405
-
+    
 
 @bp.route('/winter', methods=['GET'])
 def get_winter():
     if request.method == 'GET':
+        tags = request.args.getlist("tags")
         results = {}
         query = client.query(kind='activity')
-        query.add_filter(query.add_filter('season', 'IN', ['winter', 'all']))
+        query.add_filter('season', 'IN', ['winter', 'all'])
+        if tags:
+            query.add_filter('tags', 'IN', tags)
         results['activities'] = list(query.fetch())
         if results:
             for result in results['activities']:
