@@ -1,8 +1,23 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
-import React from "react";
 import NavBar from "./NavBar";
+import ActivityGrid from "./activityGrid";
+import TagList from "./TagList";
+import { useEffect, useRef, useState } from "react";
+import { Tag } from "../hooks/useTags";
+import { useParams } from "react-router-dom";
 
-const Home = () => {
+const Explore = () => {
+  const { season } = useParams();
+  const prevSeasonRef = useRef(season);
+  const [activityEndpoint, setActivityEndpoint] = useState<string>(
+    `/activity/${season}`
+  );
+  const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
+  useEffect(() => {
+    if (season !== prevSeasonRef.current) {
+      setActivityEndpoint(`/activity/${season}`);
+    } prevSeasonRef.current = season;
+  }, [season]);
   return (
     <Grid
       templateAreas={{
@@ -14,15 +29,19 @@ const Home = () => {
         <NavBar></NavBar>
       </GridItem>
       <Show above="lg">
-        <GridItem area="aside" bg="gold">
-          Aside
+        <GridItem area="aside" marginRight={4}>
+          <TagList endpoint="/tag" onSelectTag={(tag) => setSelectedTag(tag)} />
         </GridItem>
       </Show>
-      <GridItem area="main" bg="dodgerblue">
-         Main Explore
+      <GridItem area="main">
+        <ActivityGrid
+          endpoint={`/activity/${season}`}
+          selectedTag={selectedTag}
+          key={activityEndpoint}
+        />
       </GridItem>
     </Grid>
   );
 };
 
-export default Home;
+export default Explore;
