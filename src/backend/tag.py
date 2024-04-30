@@ -41,19 +41,19 @@ def get_tags():
                 return json.dumps(
                     {"Error": "The request object is missing the name attribute"}), 400
 
-        new_tag.update({"name": content["name"]})
+        new_tag.update({"name": content["name"], "activities": content["activities"]})
         client.put(new_tag)
         # get new id for resource URL and add that to entity
         self_url = request.url + "/" + str(new_tag.key.id)
         new_tag.update(
-            {"name": content["name"], "activities": [], "self": self_url})
+            {"name": content["name"], "activities": content["activities"], "self": self_url})
         client.put(new_tag)
         tag_id = new_tag.key.id
 
         response_data = {
             "id": tag_id,
             "name": content["name"],
-            "activities": [],
+            "activities": content["activities"],
             "self": self_url
         }
         return json.dumps(response_data), 201

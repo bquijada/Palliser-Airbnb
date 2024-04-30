@@ -14,10 +14,14 @@ const Explore = () => {
   );
   const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
   useEffect(() => {
+    setSelectedTag(null);
     if (season !== prevSeasonRef.current) {
       setActivityEndpoint(`/activity/${season}`);
     } prevSeasonRef.current = season;
   }, [season]);
+  const resetSelectedTag = () => {
+    setSelectedTag(null);
+  };
   return (
     <Grid
       templateAreas={{
@@ -26,7 +30,7 @@ const Explore = () => {
       }}
     >
       <GridItem area="nav">
-        <NavBar></NavBar>
+        <NavBar resetSelectedTag={resetSelectedTag}></NavBar>
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" marginRight={4}>

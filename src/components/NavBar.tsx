@@ -10,13 +10,34 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { GiMountains } from "react-icons/gi";
+import { FiSun, FiCloudSnow } from "react-icons/fi";
 import ColorSwitch from "./ColorSwitch";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import { FaBed } from "react-icons/fa6";
-const airbnb_link = "https://www.airbnb.com/rooms/885439177493281528";
+import { useEffect, useState } from "react";
 
-const NavBar = () => {
+const airbnb_link = "https://www.airbnb.com/rooms/885439177493281528";
+interface NavBarProps {
+  resetSelectedTag?: () => void;
+}
+const NavBar = ({ resetSelectedTag }: NavBarProps) => {
+  const [selectedSeason, setSelectedSeason] = useState<string | null>(null);
+  const [selectedIcon, setSelectedIcon] = useState<JSX.Element | null>(null)
   const navigate = useNavigate();
+  const handleExploreClick = (season: string) => {
+    setSelectedSeason(season);
+    if (resetSelectedTag) {
+      resetSelectedTag();
+    }
+  };
+  useEffect(() => {
+    // Update icon based on selected season when component mounts
+    if (selectedSeason === 'summer') {
+      setSelectedIcon(<FiSun />);
+    } else if (selectedSeason === 'winter') {
+      setSelectedIcon(<FiCloudSnow />);
+    }
+  }, [selectedSeason]);
   return (
     <HStack justifyContent="space-between" padding="10px">
       <Link href="/">
@@ -26,14 +47,27 @@ const NavBar = () => {
         About Us
       </ReactRouterLink>
       <Menu>
-        <MenuButton as={Link} className="bigger-link">
-          Explore Activities
-        </MenuButton>
+        <HStack>
+          <MenuButton as={Link} className="bigger-link">
+            Explore Activities{" "}
+          </MenuButton>          
+          {selectedIcon}
+        </HStack>
         <MenuList>
-          <MenuItem onClick={() => navigate("/Explore/summer")}>
+          <MenuItem
+            onClick={() => {
+              navigate("/Explore/summer");
+              handleExploreClick("summer");
+            }}
+          >
             Summer
           </MenuItem>
-          <MenuItem onClick={() => navigate("/Explore/winter")}>
+          <MenuItem
+            onClick={() => {
+              navigate("/Explore/winter");
+              handleExploreClick("winter");
+            }}
+          >
             Winter
           </MenuItem>
         </MenuList>
