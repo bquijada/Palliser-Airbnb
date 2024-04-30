@@ -7,7 +7,7 @@ Thank you for choosing our web application for exploring and booking your next a
 This project is a full-stack web application designed to provide users with comprehensive information about our Airbnb property and an array of exciting activities available in the Golden ski resort area. The front end is built using Vite (React) with TypeScript, providing a modern and efficient user experience. We've leveraged Chakra UI to enhance the user interface, ensuring a sleek and intuitive design. The backend was written in Python using Flask and uses Google Cloud's Datastore as the database. 
 
 ## Features
-- **Airbnb Information**: Explore detailed information about our Airbnb property, including amenities, pricing, availability, and more.
+- **Airbnb Information**: Explore information about us and our Airbnb property, and links to our Airbnb listing for booking.
   
 - **Activities Grid**: Discover a wide range of activities available in the Golden ski resort area. The activities are categorized by season (summer/winter) and can be further filtered by various tags, allowing users to find activities tailored to their preferences.
 
