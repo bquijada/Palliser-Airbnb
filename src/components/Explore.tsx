@@ -34,7 +34,7 @@ const Explore = () => {
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" marginRight={4}>
-          <TagList endpoint="/tag" onSelectTag={(tag) => setSelectedTag(tag)} />
+          <TagList selectedTag={selectedTag} endpoint="/tag" onSelectTag={(tag) => setSelectedTag(tag)} />
         </GridItem>
       </Show>
       <GridItem area="main">
