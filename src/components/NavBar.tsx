@@ -21,23 +21,12 @@ interface NavBarProps {
   resetSelectedTag?: () => void;
 }
 const NavBar = ({ resetSelectedTag }: NavBarProps) => {
-  const [selectedSeason, setSelectedSeason] = useState<string | null>(null);
-  const [selectedIcon, setSelectedIcon] = useState<JSX.Element | null>(null)
   const navigate = useNavigate();
   const handleExploreClick = (season: string) => {
-    setSelectedSeason(season);
     if (resetSelectedTag) {
       resetSelectedTag();
     }
   };
-  useEffect(() => {
-    // Update icon based on selected season when component mounts
-    if (selectedSeason === 'summer') {
-      setSelectedIcon(<FiSun />);
-    } else if (selectedSeason === 'winter') {
-      setSelectedIcon(<FiCloudSnow />);
-    }
-  }, [selectedSeason]);
   return (
     <HStack justifyContent="space-between" padding="10px">
       <Link href="/">
@@ -51,7 +40,8 @@ const NavBar = ({ resetSelectedTag }: NavBarProps) => {
           <MenuButton as={Link} className="bigger-link">
             Explore Activities{" "}
           </MenuButton>          
-          {selectedIcon}
+          {window.location.pathname.includes("summer") ? <FiSun /> : null}
+          {window.location.pathname.includes("winter") ? <FiCloudSnow /> : null}
         </HStack>
         <MenuList>
           <MenuItem
