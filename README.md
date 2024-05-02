@@ -4,7 +4,7 @@
 Thank you for choosing our web application for exploring and booking your next adventure at our Airbnb nestled in the Golden ski resort Kicking Horse! Below you'll find some essential information to get you started:
 
 ## About the Project
-This project is a full-stack web application designed to provide users with comprehensive information about our Airbnb property and an array of exciting activities available in the Golden ski resort area. The front end is built using Vite (React) with TypeScript, providing a modern and efficient user experience. We've leveraged Chakra UI to enhance the user interface, ensuring a sleek and intuitive design. The backend was written in Python using Flask and uses Google Cloud's Datastore as the database. 
+This project is a full-stack web application designed to provide users with comprehensive information about our Airbnb property and an array of exciting activities available in the Golden ski resort area. The front end is built using React with TypeScript, providing a modern and efficient user experience. We've leveraged Chakra UI to enhance the user interface, ensuring a sleek and intuitive design. The backend was written in Python using Flask and uses Google Cloud's Datastore as the database. 
 
 ## Features
 - **Airbnb Information**: Explore information about us and our Airbnb property, and links to our Airbnb listing for booking.
@@ -14,7 +14,7 @@ This project is a full-stack web application designed to provide users with comp
 ## Technologies Used
 
 - **Front End**:
-  - Vite (React) with TypeScript: Efficient and modern front-end development.
+  - React (Vite) with TypeScript: Efficient and modern front-end development.
   - Chakra UI: A modular and accessible component library for building delightful user interfaces.
 
 - **Back End**:
