@@ -35,7 +35,7 @@ const Home = () => {
         <NavBar></NavBar>
       </GridItem>
       <GridItem area="main">
-        <h1 className="heading">Welcome To Our Kicking Horse Bnb</h1>
+        <h1 className="heading">Welcome To Our Kicking Horse AirBnb</h1>
         <HStack>
           <Carousel data={slides}></Carousel>
           <Text marginLeft={2} w="400px" fontWeight="medium" fontSize="xl">
