@@ -24,6 +24,6 @@ This project is a full-stack web application designed to provide users with comp
 
 ## Getting Started
 
-To access the web application, simply navigate to [URL], and you'll be greeted with our user-friendly interface. From there, you can browse through Airbnb details and explore the plethora of activities available in Golden.
+To access the web application, simply navigate to https://palliserairbnb.vercel.app, and you'll be greeted with our user-friendly interface. From there, you can browse through Airbnb details and explore the plethora of activities available in Golden.
 
 Thank you for choosing Golden Airbnb Web App for your adventure planning needs. We hope you have an unforgettable experience in the beautiful Golden ski resort! 🏔️🏠✨
