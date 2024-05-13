@@ -16,11 +16,15 @@ This project is a full-stack web application designed to provide users with comp
 - **Front End**:
   - React (Vite) with TypeScript: Efficient and modern front-end development.
   - Chakra UI: A modular and accessible component library for building delightful user interfaces.
+  - Deployed on Vercel.
+
 
 - **Back End**:
   - Python and Flask: Powering the backend infrastructure and handling data retrieval and processing.
   - Google Cloud Datastore: A fully managed NoSQL database for storing and managing application data.
   - Google Cloud Platform: Deployed our backend services for reliable and scalable performance.
+  - Deployed on Google App Engine.
+
 
 ## Getting Started
 
