@@ -7,14 +7,6 @@ client = datastore.Client()
 
 bp = Blueprint('activity', __name__, url_prefix='/activity')
 
-
-def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = 'http://127.0.0.1:5173'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
-    return response
-
-
 @bp.route('/summer', methods=['GET'])
 def get_summer():
     if request.method == 'GET':

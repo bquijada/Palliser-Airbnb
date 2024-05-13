@@ -6,14 +6,6 @@ client = datastore.Client()
 
 bp = Blueprint('tag', __name__, url_prefix='/tag')
 
-
-def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = 'http://127.0.0.1:5173'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
-    return response
-
-
 @bp.route('', methods=['GET', 'POST'])
 def get_tags():
     if request.method == 'GET':
