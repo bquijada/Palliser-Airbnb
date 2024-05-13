@@ -8,9 +8,9 @@ from flask_cors import CORS
 app = Flask(__name__)
 app.secret_key = "123456789"
 client = datastore.Client(project="palliserbnb")
-cors = CORS(app, resources={r"/activity/winter": {"origins": "http://127.0.0.1:5173"},
-                            r"/activity/summer": {"origins": "http://127.0.0.1:5173"},
-                            r"/tag": {"origins": "http://127.0.0.1:5173"}})
+cors = CORS(app, resources={r"/activity/winter": {"origins": "https://palliserairbnb.vercel.app/"},
+                            r"/activity/summer": {"origins": "https://palliserairbnb.vercel.app/"},
+                            r"/tag": {"origins": "https://palliserairbnb.vercel.app/"}})
 
 app.register_blueprint(activity.bp)
 app.register_blueprint(tag.bp)
