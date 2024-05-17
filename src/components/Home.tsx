@@ -1,4 +1,4 @@
-import { Grid, GridItem, HStack, Show, Text } from "@chakra-ui/react";
+import { Box, Grid, GridItem, HStack, Show, Text, VStack, useBreakpointValue } from "@chakra-ui/react";
 import React from "react";
 import NavBar from "./NavBar";
 import { Carousel } from "./Carousel";
@@ -24,6 +24,7 @@ const slides = [
 ];
 
 const Home = () => {
+  const isMobile = useBreakpointValue({ base: true, lg: false });
   return (
     <Grid
       templateAreas={{
@@ -35,14 +36,26 @@ const Home = () => {
         <NavBar></NavBar>
       </GridItem>
       <GridItem area="main">
-        <h1 className="heading">Welcome To Our Kicking Horse AirBnb</h1>
-        <HStack>
-          <Carousel data={slides}></Carousel>
-          <Text marginLeft={2} w="400px" fontWeight="medium" fontSize="xl">
-            Welcome to our AirBnb website! Use the links above to learn about us or explore the
-            different activities around Golden.
-          </Text>
-        </HStack>
+          <Box textAlign="center">
+            <h1 className="heading">Welcome To Our Kicking Horse Airbnb</h1>
+          </Box>
+          {isMobile ? (
+            <VStack spacing={4}>
+              <Carousel data={slides} />
+              <Text fontSize="lg" fontWeight="medium">
+                Welcome to our Airbnb website! Use the links above to learn about us or explore the
+                different activities around Golden.
+              </Text>
+            </VStack>
+          ) : (
+            <HStack spacing={4}>
+              <Carousel data={slides} />
+              <Text w="400px" fontWeight="medium" fontSize="xl">
+                Welcome to our Airbnb website! Use the links above to learn about us or explore the
+                different activities around Golden.
+              </Text>
+            </HStack>
+          )}
       </GridItem>
     </Grid>
   );
