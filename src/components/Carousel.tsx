@@ -16,7 +16,7 @@ interface Image {
 }
 
 export const Carousel = ({ data }: Props) => {
-  const size = useBreakpointValue({ base: "100%", md: "100%" });
+  const size = useBreakpointValue({ base: "94%", md: "100%" });
   const [slide, setSlide] = useState(0);
 
   const nextSlide = () => {
