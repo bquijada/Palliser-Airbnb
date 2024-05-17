@@ -3,6 +3,7 @@ import "../assets/Palliser_Lobby.webp";
 import "../assets/palliser-winter.jpeg";
 import "../assets/hi.png";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
+import { useBreakpointValue } from "@chakra-ui/react";
 
 interface Props {
   data: Image[];
@@ -15,6 +16,7 @@ interface Image {
 }
 
 export const Carousel = ({ data }: Props) => {
+  const size = useBreakpointValue({ base: "100%", md: "100%" });
   const [slide, setSlide] = useState(0);
 
   const nextSlide = () => {
@@ -26,7 +28,7 @@ export const Carousel = ({ data }: Props) => {
   }
 
   return (
-    <div className="carousel">
+    <div className="carousel" style={{ width: size }}>
       <BsArrowLeftCircleFill className="arrow arrow-left" onClick={previousSlide}/>
       {data.map((item) => {
         return (

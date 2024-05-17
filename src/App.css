@@ -40,3 +40,22 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Carousel container */
+.carousel {
+  display: flex;
+  position: relative;
+}
+
+/* Styling for each individual slide */
+.slide {
+  width: 100%; /* Each slide takes full width of the carousel container */
+  flex-shrink: 0; /* Prevents the slide from shrinking */
+  object-fit: cover; /* Covers the area without distorting the aspect ratio */
+  display: block;
+}
+
+/* Hidden slides */
+.slide-hidden {
+  display: none; 
+}
