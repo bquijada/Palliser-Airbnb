@@ -4,7 +4,7 @@ import NavBar from "./NavBar";
 import HomeStack from "./HomeStack";
 
 const Home = () => {
-  const isMobile = useBreakpointValue({ base: true, lg: false });
+  const isMobile = useBreakpointValue({ base: true, md: false, lg: false });
   return (
     <Grid
       templateAreas={{
