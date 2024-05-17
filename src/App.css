@@ -59,3 +59,17 @@
 .slide-hidden {
   display: none; 
 }
+
+.big-icon {
+  font-size: 48px; /* Or whatever size you prefer */
+}
+
+.summer-icon {
+  color: rgb(241, 217, 79);  /* Gold color for summer icons */
+  font-size: 48px;
+}
+
+.winter-icon {
+  color: #a5dcde;  /* Blue color for winter icons */
+  font-size: 48px;
+}

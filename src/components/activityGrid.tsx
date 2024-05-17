@@ -30,8 +30,7 @@ const ActivityGrid = ({ endpoint, selectedTag }: ActivityGridProps) => {
     return (
       <Flex justifyContent="flex-start"> 
         <Box marginTop={10} backgroundColor="gray.800" padding={4} borderRadius={8}>
-          <Text color="white" fontWeight="bold" fontSize="3xl">No Activities Found</Text>
-          {/* Adjust the fontSize value as needed */}
+          <Text color="white" fontWeight="bold" fontSize="3xl">No activities found with this tag for this season. Try changing season.</Text>
         </Box>
       </Flex>
     );

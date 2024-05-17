@@ -40,8 +40,8 @@ const NavBar = ({ resetSelectedTag }: NavBarProps) => {
           <MenuButton as={Link} className="bigger-link">
             Explore Activities{" "}
           </MenuButton>          
-          {window.location.pathname.includes("summer") ? <FiSun /> : null}
-          {window.location.pathname.includes("winter") ? <FiCloudSnow /> : null}
+          {window.location.pathname.includes("summer") ? <FiSun className="summer-icon"/> : null}
+          {window.location.pathname.includes("winter") ? <FiCloudSnow className="winter-icon"/> : null}
         </HStack>
         <MenuList>
           <MenuItem
