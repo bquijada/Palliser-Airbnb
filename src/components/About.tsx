@@ -1,4 +1,4 @@
-import { Grid, GridItem, HStack, Image, Spacer, Text } from "@chakra-ui/react";
+import { Grid, GridItem, HStack, Image, Spacer, Text, useBreakpointValue } from "@chakra-ui/react";
 import NavBar from "./NavBar";
 import img from "../assets/clem&bren.jpg";
 
